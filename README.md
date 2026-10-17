@@ -3,7 +3,7 @@
 Sitio web promocional y plataforma de captura para el proyecto educativo **CodeQuest: Aprende Programando**, desarrollado para la Fundación Escuela Tecnológica de Neiva "Jesús Oviedo Pérez" (FET).
 
 ## 🚀 Repositorio y Despliegue
-* **Sitio Web Publicado:** https://chopinnate12.github.io/codequest-landing/
+* **Sitio Web Publicado:** https://chopinnate12.github.io/chopinnate12.io/
 * **Repositorio GitHub:** https://github.com/chopinnate12/chopinnate12.io
 
 ---

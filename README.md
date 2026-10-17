@@ -4,7 +4,7 @@ Sitio web promocional y plataforma de captura para el proyecto educativo **CodeQ
 
 ## 🚀 Repositorio y Despliegue
 * **Sitio Web Publicado:** https://chopinnate12.github.io/codequest-landing/
-* **Repositorio GitHub:** https://github.com/chopinnate12/codequest-landing
+* **Repositorio GitHub:** https://github.com/chopinnate12/chopinnate12.io
 
 ---
 

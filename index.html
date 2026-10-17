@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest: Aprende Programando | Videojuego Educativo 2D</title>
+    <!-- Tailwind CSS v4 Browser CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Configuración del Tema con @theme (Tailwind v4) -->
+    <style type="text/tailwindcss">
+        @theme {
+            --font-gamer: 'Press Start 2P', monospace;
+            --font-sans: 'Inter', sans-serif;
+            --color-brand-dark: #0f172a;
+            --color-brand-card: #1e293b;
+            --color-brand-accent: #10b981;
+            --color-brand-accent-hover: #059669;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-900 transition-colors duration-300">
+
+    <!-- ==================== 1. NAVBAR / HEADER ==================== -->
+    <header class="fixed top-0 left-0 w-full bg-slate-900/90 backdrop-blur-md border-b border-slate-800 z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg p-1">
+                <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-slate-900 font-bold text-xl group-hover:scale-105 transition-transform shadow-lg shadow-emerald-500/20">
+                    &lt;/&gt;
+                </div>
+                <span class="font-gamer text-sm md:text-base text-white tracking-wider">CodeQuest</span>
+            </a>
+
+            <!-- Navegación Escritorio -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#caracteristicas" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors focus:outline-none focus:text-emerald-400">Características</a>
+                <a href="#niveles" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors focus:outline-none focus:text-emerald-400">Niveles</a>
+                <a href="#nosotros" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors focus:outline-none focus:text-emerald-400">Nosotros</a>
+                <a href="#faq" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors focus:outline-none focus:text-emerald-400">FAQ</a>
+                <a href="#contacto" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors focus:outline-none focus:text-emerald-400">Registro</a>
+            </nav>
+
+            <!-- Acciones Derecha -->
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Botón Modo Oscuro/Claro -->
+                <button id="theme-toggle" type="button" aria-label="Cambiar modo claro u oscuro" class="p-2.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 006.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <a href="#contacto" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-5 py-2.5 rounded-lg shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                    Jugar Demo
+                </a>
+            </div>
+
+            <!-- Botón Menú Hamburguesa Móvil -->
+            <div class="flex items-center gap-2 md:hidden">
+                <button id="mobile-theme-toggle" type="button" aria-label="Cambiar modo" class="p-2 text-slate-400 bg-slate-800 rounded-lg">
+                    🌙
+                </button>
+                <button id="mobile-menu-button" type="button" aria-expanded="false" aria-label="Abrir menú de navegación" class="p-2 text-slate-400 hover:text-white bg-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#caracteristicas" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">Características</a>
+            <a href="#niveles" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">Niveles</a>
+            <a href="#nosotros" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">Nosotros</a>
+            <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">FAQ</a>
+            <a href="#contacto" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">Registro</a>
+            <a href="#contacto" class="mobile-nav-link block w-full text-center bg-emerald-500 text-slate-900 font-bold px-4 py-3 rounded-lg shadow-md">Jugar Demo</a>
+        </div>
+    </header>
+
+    <!-- ==================== 2. SECCIÓN HERO ==================== -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        Proyecto FET 2026 • MVP 1.0
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Aprende a Programar <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Jugando en 2D</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Supera la abstracción y la desmotivación. CodeQuest convierte los conceptos de variables, condicionales y ciclos en divertidos acertijos dentro de un mundo interactivo en 2D.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#contacto" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-8 py-4 rounded-xl shadow-xl shadow-emerald-500/20 hover:scale-105 transition-all text-center">
+                            Probar MVP Gratis
+                        </a>
+                        <a href="#caracteristicas" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl border border-slate-700 transition-all text-center">
+                            Ver Metodología
+                        </a>
+                    </div>
+                </div>
+                <!-- Imagen Hero -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative bg-slate-800 border-2 border-slate-700 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Captura de pantalla de la interfaz interactiva de CodeQuest" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm p-4 rounded-xl border border-slate-700">
+                            <p class="font-gamer text-xs text-emerald-400">Nivel 02: Condicionales</p>
+                            <p class="text-xs text-slate-300 mt-1">Editor de código ejecutando orden: <code class="text-amber-400">if (tieneLlave) abrirPuerta();</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. SECCIÓN CARACTERÍSTICAS / NOSOTROS ==================== -->
+    <section id="caracteristicas" class="py-20 bg-slate-950/50 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Diseñado para Aprender Sin Frustración</h2>
+                <p class="text-slate-400 text-base">Combinamos la ingeniería de software moderna con los principios pedagógicos de gamificación para garantizar retención de conceptos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 hover:border-emerald-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold mb-4">
+                        💻
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Editor Embebido</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Escribe bloques de sintaxis simplificados en JavaScript o Python directamente en el juego sin configurar entornos complejos.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 hover:border-emerald-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold mb-4">
+                        ⚡
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Feedback Inmediato</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Observa instantáneamente cómo tu código mueve al personaje o genera un error visual claro para corregir al instante.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 hover:border-emerald-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold mb-4">
+                        💡
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Pistas Interactivas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Si te atascas en un reto, el sistema te brinda orientación pedagógica progresiva sin dar la respuesta directamente.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 hover:border-emerald-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold mb-4">
+                        🏆
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Gamificación PBL</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Gana puntos, insignias y desbloquea niveles a medida que dominas la lógica computacional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. SECCIÓN NIVELES (TARJETAS GRID) ==================== -->
+    <section id="niveles" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-emerald-400 text-sm font-semibold uppercase tracking-wider">Plan de Estudio Jugable</span>
+                <h2 class="text-3xl font-bold text-white">Niveles del Producto Mínimo Viable (MVP)</h2>
+                <p class="text-slate-400">Cada nivel introduce un concepto fundamental con dificultad incremental.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tarjeta Nivel 1 -->
+                <div class="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-emerald-500/60 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Bosque Lógico - Nivel 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-emerald-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Básico</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <span class="font-gamer text-xs text-emerald-400">Nivel 01</span>
+                            <h3 class="text-xl font-bold text-white">Bosque Lógico: Secuencias y Variables</h3>
+                            <p class="text-slate-400 text-sm">Aprende a almacenar datos en variables y ejecutar instrucciones ordenadas para guiar al héroe por el mapa.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-slate-700/50 mt-4 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">Concepto: <strong class="text-slate-200">Variables</strong></span>
+                        <button class="text-emerald-400 hover:text-emerald-300 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Ver Desafío &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Nivel 2 -->
+                <div class="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-emerald-500/60 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="Mazmorra de Decisiones - Nivel 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-amber-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Intermedio</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <span class="font-gamer text-xs text-amber-400">Nivel 02</span>
+                            <h3 class="text-xl font-bold text-white">Mazmorra: Condicionales (If / Else)</h3>
+                            <p class="text-slate-400 text-sm">Toma decisiones en tiempo real dentro del laberinto evaluando expresiones lógicas y verdades booleanas.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-slate-700/50 mt-4 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">Concepto: <strong class="text-slate-200">Condicionales</strong></span>
+                        <button class="text-emerald-400 hover:text-emerald-300 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Ver Desafío &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Nivel 3 -->
+                <div class="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-emerald-500/60 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80" alt="Bucle Infinito - Nivel 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full">Avanzado</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <span class="font-gamer text-xs text-rose-400">Nivel 03</span>
+                            <h3 class="text-xl font-bold text-white">Torre Bucle: Ciclos (While / For)</h3>
+                            <p class="text-slate-400 text-sm">Optimiza tu código reduciendo líneas mediante estructuras iterativas para derrotar obstáculos repetitivos.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-slate-700/50 mt-4 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">Concepto: <strong class="text-slate-200">Ciclos y Bucle</strong></span>
+                        <button class="text-emerald-400 hover:text-emerald-300 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Ver Desafío &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== NOSOTROS / SOBRE EL PROYECTO ==================== -->
+    <section id="nosotros" class="py-20 bg-slate-950/40 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-emerald-400 text-sm font-semibold uppercase tracking-wider">Desarrollado en la FET Neiva</span>
+                    <h2 class="text-3xl font-bold text-white leading-tight">Creado por Estudiantes de Ingeniería para Mitigar la Deserción</h2>
+                    <p class="text-slate-300 leading-relaxed">
+                        CodeQuest nace como respuesta a las elevadas tasas de deserción superior al 13% en carreras tecnológicas en el Huila y Colombia. Utilizando el motor de código abierto **Godot Engine** y metodología **Scrum**, el equipo construyó un producto liviano (< 100 MB) que funciona de forma offline en cualquier computador.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+                            <span class="block text-2xl font-bold text-emerald-400">100%</span>
+                            <span class="text-xs text-slate-400">Código Abierto (Licencia MIT)</span>
+                        </div>
+                        <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+                            <span class="block text-2xl font-bold text-emerald-400">60 FPS</span>
+                            <span class="text-xs text-slate-400">Optimizado para gama baja</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 space-y-4">
+                    <h3 class="text-xl font-semibold text-white mb-4">Equipo de Desarrollo</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">VT</div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Valerie Trujillo Ospina</p>
+                                <p class="text-xs text-slate-400">Scrum Master / Dev Frontend & Arte 2D</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">JA</div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Juan Sebastián Aranda</p>
+                                <p class="text-xs text-slate-400">Product Owner / Dev Godot & GDScript</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">JR</div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Juan José Ramos Díaz</p>
+                                <p class="text-xs text-slate-400">Docente Evaluador / Stakeholder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. COMPONENTE EXTRA: PREGUNTAS FRECUENTES (ACORDEÓN JS) ==================== -->
+    <section id="faq" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 space-y-3">
+                <h2 class="text-3xl font-bold text-white">Preguntas Frecuentes (FAQ)</h2>
+                <p class="text-slate-400">Resuelve tus dudas sobre el juego CodeQuest y sus requisitos.</p>
+            </div>
+
+            <div class="space-y-4" id="faq-accordion">
+                <!-- Item 1 -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <button class="faq-button w-full px-6 py-4 text-left flex items-center justify-between font-semibold text-white hover:bg-slate-750 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <span>¿Necesito saber programar antes de jugar CodeQuest?</span>
+                        <span class="faq-icon text-emerald-400 text-xl font-bold">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-3">
+                        No. CodeQuest está diseñado exactamente para principiantes absolutos. Comienza desde secuencias lógicas muy simples hasta llegar a conceptos de ciclos y funciones.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <button class="faq-button w-full px-6 py-4 text-left flex items-center justify-between font-semibold text-white hover:bg-slate-750 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <span>¿Cuáles son los requisitos mínimos de hardware?</span>
+                        <span class="faq-icon text-emerald-400 text-xl font-bold">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-3">
+                        El juego es ultra liviano gracias a Godot Engine. Funciona en Windows 10/11 y Linux con un procesador dual-core, 2 GB de memoria RAM y menos de 100 MB de espacio en disco.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <button class="faq-button w-full px-6 py-4 text-left flex items-center justify-between font-semibold text-white hover:bg-slate-750 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <span>¿Es totalmente gratuito?</span>
+                        <span class="faq-icon text-emerald-400 text-xl font-bold">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-3">
+                        Sí, 100% gratuito y liberado bajo la Licencia MIT de Código Abierto para beneficiar a colegios e instituciones educativas del Huila y Colombia.
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <button class="faq-button w-full px-6 py-4 text-left flex items-center justify-between font-semibold text-white hover:bg-slate-750 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <span>¿Cómo pueden usarlo los docentes en sus clases?</span>
+                        <span class="faq-icon text-emerald-400 text-xl font-bold">+</span>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-3">
+                        Los profesores pueden descargar el ejecutable o compartir el enlace web para asignarlo como talleres lógicos interactivos en la clase de introducción a la algoritmia.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. SECCIÓN FORMULARIO CON VALIDACIÓN ==================== -->
+    <section id="contacto" class="py-20 bg-slate-950/60 border-t border-slate-800">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-800 p-8 sm:p-10 rounded-2xl border border-slate-700 shadow-2xl relative">
+                <div class="text-center mb-8 space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Únete a la Beta Tester de CodeQuest</h2>
+                    <p class="text-slate-400 text-sm">Regístrate para recibir el enlace de descarga exclusivo del MVP y reportar tus impresiones.</p>
+                </div>
+
+                <form id="beta-form" class="space-y-6" novalidate>
+                    <!-- Campo Nombre -->
+                    <div>
+                        <label for="full-name" class="block text-sm font-medium text-slate-200 mb-1">Nombre Completo *</label>
+                        <input type="text" id="full-name" name="full-name" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors" placeholder="Ej. Carlos Pérez">
+                        <p id="error-name" class="hidden text-rose-400 text-xs mt-1">Por favor ingresa tu nombre completo.</p>
+                    </div>
+
+                    <!-- Campo Correo -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-200 mb-1">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors" placeholder="ejemplo@estudiante.fet.edu.co">
+                        <p id="error-email" class="hidden text-rose-400 text-xs mt-1">Ingresa un correo electrónico válido.</p>
+                    </div>
+
+                    <!-- Campo Rol -->
+                    <div>
+                        <label for="user-role" class="block text-sm font-medium text-slate-200 mb-1">Rol / Perfil *</label>
+                        <select id="user-role" name="user-role" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">
+                            <option value="">Selecciona tu perfil...</option>
+                            <option value="estudiante">Estudiante de Bachillerato / Universidad</option>
+                            <option value="docente">Docente / Instructor</option>
+                            <option value="otro">Entusiasta de los Videojuegos</option>
+                        </select>
+                        <p id="error-role" class="hidden text-rose-400 text-xs mt-1">Por favor selecciona una opción.</p>
+                    </div>
+
+                    <!-- Comentarios -->
+                    <div>
+                        <label for="comments" class="block text-sm font-medium text-slate-200 mb-1">¿Qué concepto te gustaría ver en el juego?</label>
+                        <textarea id="comments" rows="3" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors" placeholder="Comentarios o sugerencias opcionales..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-4 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-[1.01] active:scale-95 transition-all">
+                        Enviar Registro y Descargar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. PIE DE PÁGINA (FOOTER) ==================== -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 text-sm py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-slate-900 font-bold">
+                        &lt;/&gt;
+                    </div>
+                    <span class="font-gamer text-white text-xs">CodeQuest FET</span>
+                </div>
+                <p class="text-xs text-center md:text-left">
+                    Fundación Escuela Tecnológica de Neiva "Jesús Oviedo Pérez" • Ingeniería de Software 2026
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors">GitHub Repo</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Licencia MIT</a>
+                </div>
+            </div>
+            <div class="text-center text-xs text-slate-500 border-t border-slate-800/80 pt-6">
+                &copy; 2026 CodeQuest: Aprende Programando. Valerie Trujillo & Juan Sebastián Aranda. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST DE CONFIRMACIÓN (Oculto por defecto) -->
+    <div id="toast-success" class="hidden fixed bottom-5 right-5 bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 z-50 border border-emerald-400/30 animate-bounce">
+        <span class="text-2xl">🎉</span>
+        <div>
+            <p class="font-bold text-sm">¡Registro Exitoso!</p>
+            <p class="text-xs opacity-90">Te hemos enviado el acceso al MVP de CodeQuest.</p>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT VANILLA ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. MENÚ HAMBURGUESA MÓVIL ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // --- 2. MODO OSCURO / CLARO TOGGLE ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            function toggleTheme() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+
+            // --- 3. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ) ---
+            const faqButtons = document.querySelectorAll('.faq-button');
+
+            faqButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('.faq-icon');
+                    
+                    // Cerrar otros abiertos
+                    document.querySelectorAll('.faq-content').forEach(item => {
+                        if (item !== content) {
+                            item.classList.add('hidden');
+                            item.previousElementSibling.querySelector('.faq-icon').textContent = '+';
+                        }
+                    });
+
+                    // Alternar actual
+                    content.classList.toggle('hidden');
+                    icon.textContent = content.classList.contains('hidden') ? '+' : '−';
+                });
+            });
+
+            // --- 4. VALIDACIÓN DE FORMULARIO Y TOAST ---
+            const form = document.getElementById('beta-form');
+            const fullNameInput = document.getElementById('full-name');
+            const emailInput = document.getElementById('email');
+            const roleSelect = document.getElementById('user-role');
+
+            const errorName = document.getElementById('error-name');
+            const errorEmail = document.getElementById('error-email');
+            const errorRole = document.getElementById('error-role');
+            const toast = document.getElementById('toast-success');
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Validar Nombre
+                if (fullNameInput.value.trim().length < 3) {
+                    errorName.classList.remove('hidden');
+                    fullNameInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorName.classList.add('hidden');
+                    fullNameInput.classList.remove('border-rose-500');
+                }
+
+                // Validar Correo
+                if (!validateEmail(emailInput.value.trim())) {
+                    errorEmail.classList.remove('hidden');
+                    emailInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorEmail.classList.add('hidden');
+                    emailInput.classList.remove('border-rose-500');
+                }
+
+                // Validar Rol
+                if (roleSelect.value === '') {
+                    errorRole.classList.remove('hidden');
+                    roleSelect.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorRole.classList.add('hidden');
+                    roleSelect.classList.remove('border-rose-500');
+                }
+
+                // Si todo está correcto
+                if (isValid) {
+                    // Mostrar Toast
+                    toast.classList.remove('hidden');
+                    form.reset();
+
+                    // Ocultar Toast a los 4 segundos
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 4000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
